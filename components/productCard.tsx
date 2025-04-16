@@ -65,6 +65,20 @@ function ProductCard({ product }: { product: ProductType }) {
     }
   };
 
+  const calculateDiscountedPrice = (
+    price: number,
+    discountPercentage: number
+  ) => {
+    if (discountPercentage <= 0) return price.toLocaleString(
+      undefined,
+      {  maximumFractionDigits: 2 }
+    );
+    return (price - (price * discountPercentage) / 100).toLocaleString(
+      undefined,
+      {  maximumFractionDigits: 2 }
+    );
+  };
+
   return (
     <Card className="max-w-sm w-full group">
       <CardContent className="relative mt-4">
@@ -99,7 +113,10 @@ function ProductCard({ product }: { product: ProductType }) {
             <p
               className="text-base font-bold text-indigo-600 transition-colors duration-200 
             group-hover:text-indigo-800">
-              ₹{product.price.toLocaleString()}
+              ₹{calculateDiscountedPrice(
+                product.price,
+                product.discountPercentage
+              )}
             </p>
             <div className="flex items-center gap-0.5 bg-gray-50 px-1.5 py-0.5 rounded-full">
               {renderStars(product.rating.rate)}

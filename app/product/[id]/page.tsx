@@ -292,7 +292,7 @@ function ProductDetails({ params }: { params: { id: string } }) {
                 <div className="flex items-center mb-6">
                   <TruckIcon className="w-5 h-5 text-green-500 mr-2" />
                   <span className="text-sm text-gray-600">
-                    Free shipping on orders over $50
+                    Free shipping on orders over 500/-
                   </span>
                 </div>
 
