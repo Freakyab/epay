@@ -24,15 +24,12 @@ function Invoice({ params }: { params: { id: string } }) {
           throw new Error("Invalid order id");
         }
 
-        const res = await fetch(
-          `${BASE_URL}orders/invoice/${params.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await fetch(`${BASE_URL}orders/invoice/${params.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
 
         if (data.success) {
@@ -41,8 +38,6 @@ function Invoice({ params }: { params: { id: string } }) {
             transactionDetails: data.transactionDetails,
             addressDetails: data.addressDetails,
           });
-
-
         } else {
           toast.error(data.message);
           setError(data.message);
@@ -188,13 +183,18 @@ function Invoice({ params }: { params: { id: string } }) {
                             className="w-16 h-16 object-cover rounded"
                           />
                           <div className="ml-4">
-                            <p className="text-sm text-gray-600 cursor-pointer"
-                                onClick={() => router.push(`/product/${product._id}`)}
-                            >
+                            <p
+                              className="text-sm text-gray-600 cursor-pointer"
+                              onClick={() =>
+                                router.push(`/product/${product._id}`)
+                              }>
                               {product.title}
                             </p>
                             <p className="text-sm text-gray-600">
-                              ₹{product.price}
+                              ₹
+                              {product.price.toLocaleString(undefined, {
+                                maximumFractionDigits: 2,
+                              })}
                             </p>
                             <p className="text-sm text-gray-600">
                               Quantity:{" "}
@@ -222,23 +222,29 @@ function Invoice({ params }: { params: { id: string } }) {
                         actual price
                       </span>
 
-                      <span>₹{subtotal(orderDetails)}</span>
+                      <span>
+                        ₹
+                        {subtotal(orderDetails).toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </span>
                     </div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-gray-600 capitalize"
-                      title="Shipping charges, taxes, etc"
-                      >
+                      <span
+                        className="text-gray-600 capitalize"
+                        title="Shipping charges, taxes, etc">
                         other charges
                       </span>
                       <span
                         className="text-red-500"
-                        title="Shipping charges, taxes, etc"
-                      >
+                        title="Shipping charges, taxes, etc">
                         ₹
                         {Number(
                           orderDetails.transactionDetails.price -
                             subtotal(orderDetails)
-                        ).toFixed(2)}
+                        ).toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </span>
                     </div>
                   </div>
@@ -248,9 +254,11 @@ function Invoice({ params }: { params: { id: string } }) {
 
                       <span className="text-lg font-semibold">
                         ₹
-                        {Number(orderDetails.transactionDetails.price).toFixed(
-                          2
-                        )}
+                        {Number(
+                          orderDetails.transactionDetails.price
+                        ).toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </span>
                     </div>
                   </div>
