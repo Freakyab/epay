@@ -6,6 +6,7 @@ import { Card, CardContent } from "./ui/card";
 import { Star, ShoppingCart } from "lucide-react";
 import { useRouter } from "nextjs-toploader/app";
 import { useSession } from "next-auth/react";
+import { BASE_URL } from "./useBackendUrl";
 
 function ProductCard({ product }: { product: ProductType }) {
   const router = useRouter();
@@ -41,7 +42,7 @@ function ProductCard({ product }: { product: ProductType }) {
         return;
       }
       const response = await fetch(
-        `http://localhost:8000/cart/${product._id}`,
+        `${BASE_URL}cart/${product._id}`,
         {
           method: "POST",
           headers: {
@@ -69,13 +70,11 @@ function ProductCard({ product }: { product: ProductType }) {
     price: number,
     discountPercentage: number
   ) => {
-    if (discountPercentage <= 0) return price.toLocaleString(
-      undefined,
-      {  maximumFractionDigits: 2 }
-    );
+    if (discountPercentage <= 0)
+      return price.toLocaleString(undefined, { maximumFractionDigits: 2 });
     return (price - (price * discountPercentage) / 100).toLocaleString(
       undefined,
-      {  maximumFractionDigits: 2 }
+      { maximumFractionDigits: 2 }
     );
   };
 
@@ -113,7 +112,8 @@ function ProductCard({ product }: { product: ProductType }) {
             <p
               className="text-base font-bold text-indigo-600 transition-colors duration-200 
             group-hover:text-indigo-800">
-              ₹{calculateDiscountedPrice(
+              ₹
+              {calculateDiscountedPrice(
                 product.price,
                 product.discountPercentage
               )}

@@ -5,6 +5,7 @@ import {  OrderProps } from "@/app/type";
 import Loading from "@/components/loading";
 import { useRouter } from "nextjs-toploader/app";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 function Status({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -26,7 +27,7 @@ function Status({ params }: { params: { id: string } }) {
         }
 
         const res = await fetch(
-          `http://localhost:8000/payment/callback/${params.id}`,
+          `${BASE_URL}payment/callback/${params.id}`,
           {
             method: "POST",
             headers: {

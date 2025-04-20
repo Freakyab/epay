@@ -5,6 +5,7 @@ import { ProductType, AddressType, OrderProps } from "@/app/type";
 import Loading from "@/components/loading";
 import { useRouter } from "nextjs-toploader/app";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 function Invoice({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -24,7 +25,7 @@ function Invoice({ params }: { params: { id: string } }) {
         }
 
         const res = await fetch(
-          `http://localhost:8000/orders/invoice/${params.id}`,
+          `${BASE_URL}orders/invoice/${params.id}`,
           {
             method: "GET",
             headers: {

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ProductType } from "@/app/type";
 import { useRouter } from "nextjs-toploader/app";
 import Loading from "../loading";
+import { BASE_URL } from "../useBackendUrl";
 
 function Hero() {
   const router = useRouter();
@@ -21,7 +22,7 @@ function Hero() {
       setSearch(value);
 
       const response = await fetch(
-        `http://localhost:8000/products/search/${value}`,
+        `${BASE_URL}products/search/${value}`,
         {
           method: "GET",
           headers: {

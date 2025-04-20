@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "nextjs-toploader/app";
 
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 const calculateTotal = (cartItems: CartProps[] | null) => {
   return (
@@ -39,7 +40,7 @@ function Cart() {
       if (!session?.user?.id) {
         throw new Error("User not logged");
       }
-      const res = await fetch(`http://localhost:8000/cart/${session.user.id}`);
+      const res = await fetch(`${BASE_URL}cart/${session.user.id}`);
       const data = await res.json();
       if (data.success) {
         setCartItems(data.data);
@@ -70,7 +71,7 @@ function Cart() {
       }
 
       const res = await fetch(
-        `http://localhost:8000/cart/updateQuantity/${item.product._id}`,
+        `${BASE_URL}cart/updateQuantity/${item.product._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -112,7 +113,7 @@ function Cart() {
       }
       setLoading(true);
       const res = await fetch(
-        `http://localhost:8000/cart/updateSelected/${item.product._id}`,
+        `${BASE_URL}cart/updateSelected/${item.product._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -151,7 +152,7 @@ function Cart() {
       }
       setLoading(true);
       const res = await fetch(
-        `http://localhost:8000/cart/deleteItem/${item.product._id}`,
+        `${BASE_URL}cart/deleteItem/${item.product._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

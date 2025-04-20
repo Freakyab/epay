@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 import ReviewSubmit from "@/components/reviewSubmit";
 import { useRouter } from "nextjs-toploader/app";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 function ProductDetails({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -42,7 +43,7 @@ function ProductDetails({ params }: { params: { id: string } }) {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `http://localhost:8000/products/${params.id}?sentry_data=true`,
+        `${BASE_URL}products/${params.id}?sentry_data=true`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -146,7 +147,7 @@ function ProductDetails({ params }: { params: { id: string } }) {
       let json = JSON.parse(text.replace(/```json|```/g, ""));
       if (json.length > 0) {
         const res = await fetch(
-          `http://localhost:8000/reviews/generated/${params.id}`,
+          `${BASE_URL}reviews/generated/${params.id}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -181,7 +182,7 @@ function ProductDetails({ params }: { params: { id: string } }) {
         return;
       }
       const response = await fetch(
-        `http://localhost:8000/cart/${product._id}`,
+        `${BASE_URL}cart/${product._id}`,
         {
           method: "POST",
           headers: {

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 export default function AddProduct() {
   const { data: session, status } = useSession();
@@ -143,7 +144,7 @@ export default function AddProduct() {
         throw new Error("User not authenticated");
       }
       const response = await fetch(
-        `http://localhost:8000/products/add/${session?.user.id}`,
+        `${BASE_URL}products/add/${session?.user.id}`,
         {
           method: "POST",
           headers: {

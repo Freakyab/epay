@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Loading from "@/components/loading";
 import { useRouter } from "nextjs-toploader/app";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 type OrderType = {
   orderId: string;
@@ -47,7 +48,7 @@ const OrderHistory = () => {
       }
 
       const response = await fetch(
-        `http://localhost:8000/orders/${session.user.id}`,
+        `${BASE_URL}orders/${session.user.id}`,
         {
           method: "GET",
           headers: {

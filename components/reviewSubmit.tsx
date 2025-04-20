@@ -11,6 +11,7 @@ import {
 import { Star } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "nextjs-toploader/app";
+import { BASE_URL } from "./useBackendUrl";
 
 function ReviewSubmit({ id }: { id: string }) {
   const { data: session } = useSession();
@@ -21,7 +22,7 @@ function ReviewSubmit({ id }: { id: string }) {
   const handleSubmit = async () => {
     try {
       if (!session?.user?.email) return;
-      const response = await fetch("http://localhost:8000/reviews", {
+      const response = await fetch(`${BASE_URL}reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

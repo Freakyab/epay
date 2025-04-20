@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext } from "react";
+import { BASE_URL } from "../useBackendUrl";
 
 interface CategoriesContextType {
   categories: string[];
@@ -18,7 +19,7 @@ export const CategoriesProvider = ({
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:8000/products/category", {
+      const response = await fetch(`${BASE_URL}products/category`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

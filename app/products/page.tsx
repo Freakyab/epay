@@ -21,6 +21,7 @@ import Loading from "@/components/loading";
 import { useRouter } from "nextjs-toploader/app";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 function Products() {
   const router = useRouter();
@@ -92,7 +93,7 @@ function Products() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8000/products/getProducts",
+        `${BASE_URL}products/getProducts`,
         {
           method: "GET",
           headers: {
@@ -489,7 +490,7 @@ function Products() {
         router.push("/login");
         return;
       }
-      const response = await fetch(`http://localhost:8000/cart/${id}`, {
+      const response = await fetch(`${BASE_URL}cart/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

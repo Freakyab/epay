@@ -1,4 +1,7 @@
 "use server";
+
+import { BASE_URL} from "@/components/useBackendUrl";
+
 export const fetchUser = async ({
   email,
   password,
@@ -10,7 +13,7 @@ export const fetchUser = async ({
     if (!email || !password) {
       throw new Error("Invalid credentials");
     }
-    const response = await fetch("http://localhost:8000/auth/login", {
+    const response = await fetch(`${BASE_URL}auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +51,7 @@ export const createUser = async ({
       throw new Error("Invalid credentials");
     }
 
-    const response = await fetch("http://localhost:8000/auth/register", {
+    const response = await fetch("${BASE_URL}auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

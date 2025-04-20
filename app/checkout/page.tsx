@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { CartProps, AddressType } from "../type";
 import { useRouter } from "nextjs-toploader/app";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/components/useBackendUrl";
 
 function CheckoutPage() {
   const router = useRouter();
@@ -42,7 +43,7 @@ function CheckoutPage() {
       if (!session?.user?.id) {
         throw new Error("User not authenticated");
       }
-      const res = await fetch(`http://localhost:8000/cart/${session.user.id}`);
+      const res = await fetch(`${BASE_URL}cart/${session.user.id}`);
       const resData = await res.json();
 
       if (resData.success) {
@@ -92,7 +93,7 @@ function CheckoutPage() {
         quantity: item.quantity,
       }));
 
-      const res = await fetch("http://localhost:8000/payment", {
+      const res = await fetch(`${BASE_URL}payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

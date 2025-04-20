@@ -9,6 +9,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { useRouter } from "nextjs-toploader/app";
 import ProductCard from "@/components/productCard";
 import { Button } from "../ui/button";
+import { BASE_URL } from "../useBackendUrl";
 
 function SuggestionTab() {
   const router = useRouter();
@@ -27,7 +28,7 @@ function SuggestionTab() {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/products?limit=30", {
+      const response = await fetch(`${BASE_URL}products?limit=30`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
