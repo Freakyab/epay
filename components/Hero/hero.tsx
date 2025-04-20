@@ -8,7 +8,7 @@ import Loading from "../loading";
 import { BASE_URL } from "../useBackendUrl";
 
 function Hero() {
-  console.log(BASE_URL);
+  console.log(process.env.NEXT_MODE);
   const router = useRouter();
   const [search, setSearch] = React.useState<string>("");
   const [isSearchOpen, setIsSearchOpen] = React.useState<boolean>(false);
