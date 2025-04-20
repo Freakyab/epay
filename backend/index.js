@@ -10,32 +10,12 @@ app.use(bodyPareser.json());
 app.use(cors());
 app.use(express.json());
 
-app.get("/",async (req, res) => {
-  try {
-    const products = await Products.find();
-
-    const newProducts = products.map((product) => {
-      return {
-       ...product._doc,
-       price : (product.price * 28.57).toFixed(2),
-      };
-    });
-
-    await Products.deleteMany({});
-
-    await Products.insertMany(newProducts);
-
-    res.status(200).json({
-      success: true,
-      message: "Fetched products successfully",
-      products: products,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
+app.get("/", async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Welcome to the E-commerce API",
+  });
 });
-
 
 app.use("/products", require("./controllers/product.controller"));
 app.use("/auth", require("./controllers/auth.controller"));
